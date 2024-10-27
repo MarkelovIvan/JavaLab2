@@ -19,7 +19,7 @@ public class Main {
 
     public static void findAndPrintWords(StringBuffer text, int wordLength) {
         // Набір для зберігання знайдених слів без повторень
-        Set<StringBuffer> uniqueWords = new HashSet<>();
+        Set<String> uniqueWords = new HashSet<>();
         StringBuffer currentSentence = new StringBuffer();
 
         // Проходимо по кожному символу тексту
@@ -38,13 +38,13 @@ public class Main {
 
         // Виведення знайдених слів
         System.out.println("Слова довжиною " + wordLength + " символів:");
-        for (StringBuffer word : uniqueWords) {
-            System.out.println(word.toString());
+        for (String word : uniqueWords) {
+            System.out.println(word);
         }
     }
 
-    public static void extractWordsFromSentence(StringBuffer sentence, int wordLength, Set<StringBuffer> uniqueWords) {
-        StringBuffer currentWord = new StringBuffer();
+    public static void extractWordsFromSentence(StringBuffer sentence, int wordLength, Set<String> uniqueWords) {
+        StringBuilder currentWord = new StringBuilder();
 
         for (int i = 0; i < sentence.length(); i++) {
             char c = sentence.charAt(i);
@@ -54,8 +54,7 @@ public class Main {
             } else {
                 // Якщо слово досягло необхідної довжини, додаємо його в набір
                 if (currentWord.length() == wordLength) {
-                    // Додаємо копію слова в набір, щоб уникнути проблем з посиланням
-                    uniqueWords.add(new StringBuffer(currentWord));
+                    uniqueWords.add(currentWord.toString()); // Додаємо слово як String
                 }
                 currentWord.setLength(0); // Очищаємо для наступного слова
             }
@@ -63,7 +62,7 @@ public class Main {
 
         // Обробка останнього слова в реченні
         if (currentWord.length() == wordLength) {
-            uniqueWords.add(new StringBuffer(currentWord));
+            uniqueWords.add(currentWord.toString());
         }
     }
 }
